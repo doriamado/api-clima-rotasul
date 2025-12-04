@@ -1,1 +1,28 @@
-# api-clima-rotasul
+S📋 Sobre o Projeto:
+O "Alerta Climático RS" é uma aplicação full-stack (Backend + Frontend) desenvolvida para fornecer informações climáticas e alertas de risco para a região Sul do Brasil, com foco no Rio Grande do Sul. O projeto integra dados de múltiplas APIs externas para oferecer uma visão unificada e em tempo real sobre o clima, alertas de risco de desastres naturais (como vendavais e chuvas intensas) e previsões de longo prazo.
+
+O que o Projeto Faz:
+
+Fusão de Dados: Consome dados de múltiplas fontes (OpenWeatherMap, CPTEC/INPE, Google Geocoding).Motor de Alertas: Possui lógica interna no Backend (Flask) para gerar alertas de risco (vendavais, chuvas extremas, geadas, etc.) baseados em limites de segurança predefinidos.
+
+Cobertura Nacional: Utiliza busca dinâmica de IDs para consultar previsões do CPTEC/INPE para qualquer cidade do Brasil.
+
+Visualização Interativa: Apresenta os dados em um mapa interativo (Leaflet), permitindo que o usuário clique em qualquer ponto do estado para obter informações localizadas.
+
+🚀 Tecnologias UtilizadasComponenteTecnologiaDescriçãoBackend (API)Python / FlaskServidor RESTful para processamento e fusão dos dados das APIs externas.Ambientepython-dotenvGerenciamento seguro das chaves de API.ComunicaçãoFlask-CORS, requests, axiosGerencia permissões e realiza chamadas HTTP entre serviços.Frontend (Interface)HTML5, CSS, JavaScriptEstrutura e lógica do mapa interativo.MapeamentoLeaflet.js / OpenStreetMapBiblioteca leve para renderização do mapa e marcadores.
+
+⚙️ Configuração e InicializaçãoSiga os passos abaixo para configurar e executar o projeto em seu ambiente local.
+
+1. Pré-requisitosVocê precisará ter instalado:Python 3.xNode.js / npm (Necessário apenas para instalar o Axios no Frontend)
+
+2. Configuração do Backend (API)A. Ambiente Virtual e DependênciasCrie e ative um ambiente virtual (venv) na pasta raiz do projeto (API-ALERTAS-CLIMATICOS):Bashpython -m venv venv
+source venv/bin/activate  # No Windows: venv\Scripts\activate
+Instale as bibliotecas Python necessárias:Bashpip install Flask python-dotenv requests flask-cors
+B. Chaves de API (.env)Crie um arquivo chamado .env na raiz da pasta do Backend (API-ALERTAS-CLIMATICOS) e insira suas chaves de API:Snippet de código# Obtenha sua chave em https://openweathermap.org/api
+OPENWEATHER_API_KEY="SUA_CHAVE_OPENWEATHER"
+
+# Obtenha sua chave no Google Cloud Console (APIs ativadas: Geocoding)
+GOOGLE_MAPS_API_KEY="SUA_CHAVE_GOOGLE_MAPS"
+C. Iniciar o BackendExecute o servidor Flask:Bashpython app.py
+O Backend estará rodando em http://127.0.0.1:5000/.3. Configuração do Frontend (Mapa)A. Dependências do FrontendNavegue até a pasta do Frontend (frontend-mapa).Instale o Axios (embora o código final use CDN, esta é a prática padrão):Bashnpm install
+B. Iniciar o FrontendAbra o arquivo index.html diretamente no seu navegador, ou use uma extensão de servidor local (como "Live Server" no VS Code) para evitar problemas de segurança de acesso a arquivos locais.🗺️ Rotas da APIO Backend expõe duas rotas principais para o consumo de dados:MétodoRotaParâmetrosDescriçãoGET/api/v1/alerta/cidade?nome={nome_da_cidade}Busca coordenadas e dados climáticos/alertas pelo nome da cidade.GET/api/v1/alerta/coordenada?lat={latitude}&lon={longitude}Rota principal consumida pelo Frontend. Retorna clima, alertas internos e previsão CPTEC.
